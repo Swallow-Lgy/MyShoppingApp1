@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3366"
+    >
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="800dp"
+        android:id="@+id/indet_recycle"
+        >
+
+    </com.jcodecraeer.xrecyclerview.XRecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_below="@id/indet_recycle"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="共"
+            android:textSize="@dimen/sp_14"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_50"
+            android:textColor="#666666"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4"
+            android:id="@+id/indet_goods_sum"
+            android:textSize="@dimen/sp_14"
+            android:layout_marginTop="@dimen/dp_20"
+            android:textColor="#ff00"
+            android:layout_marginLeft="1dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="件商品，"
+            android:textSize="@dimen/sp_14"
+            android:layout_marginTop="@dimen/dp_20"
+            android:textColor="#666666"
+            android:layout_marginLeft="1dp"
+            />
+
+    </LinearLayout>
+</RelativeLayout>

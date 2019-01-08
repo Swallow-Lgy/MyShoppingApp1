@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="@dimen/dp_220"
+
+    >
+    <RelativeLayout
+        android:layout_width="@dimen/dp_105"
+        android:layout_height="@dimen/dp_210"
+        android:background="@drawable/criclelistback"
+        android:layout_marginRight="@dimen/dp_10"
+
+        >
+        <ImageView
+            android:layout_width="@dimen/dp_85"
+            android:layout_height="@dimen/dp_90"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:id="@+id/home_hot_image"
+            />
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_below="@id/home_hot_image"
+             android:maxLines="1"
+             android:ellipsize="end"
+             android:id="@+id/home_hot_goodsname"
+             android:layout_marginRight="@dimen/dp_10"
+             android:layout_marginLeft="@dimen/dp_10"
+             android:textSize="@dimen/sp_12"
+             android:textColor="#666666"
+             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_20"
+            android:id="@+id/home_hot_goodsprice"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_15"
+            android:textSize="@dimen/sp_14"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ff00"
+            android:layout_below="@id/home_hot_goodsname"
+            />
+    </RelativeLayout>
+</RelativeLayout>
