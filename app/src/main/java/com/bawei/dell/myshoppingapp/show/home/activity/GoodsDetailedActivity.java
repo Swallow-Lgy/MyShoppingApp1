@@ -18,6 +18,7 @@ import com.bawei.dell.myshoppingapp.show.home.bean.HomeDetailedBean;
 import com.bawei.dell.myshoppingapp.show.home.bean.SearchAddBean;
 import com.bawei.dell.myshoppingapp.show.shopcar.bean.ShopCarBean;
 import com.bawei.dell.myshoppingapp.view.IView;
+import com.google.gson.Gson;
 import com.recker.flybanner.FlyBanner;
 
 import java.util.ArrayList;
@@ -63,6 +64,7 @@ public class GoodsDetailedActivity extends BaseActivity implements View.OnClickL
     //加入购物车请求数据
     public void getAddCarData(List<SearchAddBean> mList){
         String string = "[";
+
         for (int i=0;i<mList.size();i++){
             if (Integer.valueOf(ids)==mList.get(i).getCommodityId()){
                 int count = mList.get(i).getCount();
@@ -74,27 +76,27 @@ public class GoodsDetailedActivity extends BaseActivity implements View.OnClickL
                 mList.add(new SearchAddBean(Integer.valueOf(ids),1));
                 break;
             }
+        }
             for (SearchAddBean searchAddBean :mList){
                 string+="{\"commodityId\":"+searchAddBean.getCommodityId()+",\"count\":"+searchAddBean.getCount()+"},";
             }
-            String substring = string.substring(0, string.length() - 1);
+             String substring = string.substring(0, string.length() - 1);
              substring+="]";
              Map<String,String> map = new HashMap<>();
              map.put("data",substring);
              mIPresenterImpl.requestDataPput(addUrl,map,AddShopCarBean.class);
-        }
-        Map<String,String> map = new HashMap<>();
-        map.put("data","[{\"commodityId\":"+ids+",\"count\":1}]");
-        mIPresenterImpl.requestDataPput(addUrl,map,AddShopCarBean.class);
     }
     //详情请求数据
-    public void  getDetailedData(){
+    public void  getDetailedData()
+    {
         mIPresenterImpl.requestDataPget(String.format(detailterUrl,ids),HomeDetailedBean.class);
     }
     @Override
     public void requestDataV(Object data) {
+
         //详情展示
-       if (data instanceof HomeDetailedBean){
+       if (data instanceof HomeDetailedBean)
+       {
            HomeDetailedBean detailedBean = (HomeDetailedBean) data;
            String picture = detailedBean.getResult().getPicture();
            String[] split = picture.split(",");
@@ -108,6 +110,13 @@ public class GoodsDetailedActivity extends BaseActivity implements View.OnClickL
            weigth.setText(detailedBean.getResult().getWeight()+"");
            sales.setText("已销售"+detailedBean.getResult().getSaleNum()+"件");
            detailedweb.loadDataWithBaseURL(null,detailedBean.getResult().getDetails(),"text/html","utf-8",null);
+           detailedweb.getSettings().setJavaScriptEnabled(true);
+            // 设置可以支持缩放
+           detailedweb.getSettings().setSupportZoom(true);
+            // 设置出现缩放工具
+           detailedweb.getSettings().setBuiltInZoomControls(true);
+            //扩大比例的缩放
+           detailedweb.getSettings().setUseWideViewPort(true);
        }
        //加入购物车
         if(data instanceof AddShopCarBean){
@@ -120,16 +129,50 @@ public class GoodsDetailedActivity extends BaseActivity implements View.OnClickL
         if (data instanceof ShopCarBean){
            ShopCarBean carBean = (ShopCarBean) data;
             List<ShopCarBean.ResultBean> result = carBean.getResult();
-            List<SearchAddBean> list = new ArrayList<>();
-            for (int i=0;i<result.size();i++){
-                list.add(new SearchAddBean(result.get(i).getCommodityId(),result.get(i).getCount()));
+           if (result.size()==0){
+               List<SearchAddBean> addlist=new ArrayList<>();
+               for(int i=0;i<result.size();i++){
+                   int commodityId = result.get(i).getCommodityId();
+                   int count = result.get(i).getCount();
+                   addlist.add(new SearchAddBean(Integer.valueOf(commodityId),count));
+               }
+               String datas="[";
+               for (SearchAddBean bean : addlist){
+                   datas+="{\"commodityId\":"+bean.getCommodityId()+",\"count\":"+bean.getCount()+"},";
+               }
+               String substring = datas.substring(0, datas.length() - 1);
+               substring+="]";
+               Map<String,String> params = new HashMap<>();
+               params.put("data",substring);
+
+               mIPresenterImpl.requestDataPput(addUrl,params,AddShopCarBean.class);
+           }else{
+               List<SearchAddBean> list = new ArrayList<>();
+               for (ShopCarBean.ResultBean carBean1:result){
+                   list.add(new SearchAddBean(carBean1.getCommodityId(),carBean1.getCount()));
+               }
+               getAddCarData(list);
+           }
+        }
+        if (data instanceof String ){
+            String error= (String) data;
+            if (error.equals("HTTP 500 ")){
+                SearchAddBean searchAddBean=new SearchAddBean();
+                searchAddBean.setCommodityId(ids);
+                searchAddBean.setCount(1);
+                List<SearchAddBean> list=new ArrayList<>();
+                list.add(searchAddBean);
+                String dd = new Gson().toJson(list);
+                Map<String,String> params = new HashMap<>();
+                params.put("data",dd);
+                mIPresenterImpl.requestDataPput(addUrl,params,AddShopCarBean.class);
             }
-            getAddCarData(list);
         }
     }
     //获取资源ID
     @Override
-    protected void initView(Bundle savedInstanceState) {
+    protected void initView(Bundle savedInstanceState)
+    {
            price = findViewById(R.id.detailed_price);
            name = findViewById(R.id.detailed_name);
            weigth = findViewById(R.id.detailed_weigth);

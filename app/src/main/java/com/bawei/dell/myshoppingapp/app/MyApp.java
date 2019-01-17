@@ -5,16 +5,26 @@ import android.content.Context;
 import android.graphics.Point;
 import android.view.WindowManager;
 
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
+
 public class MyApp extends Application {
     //绘制页面时参照的设计图宽度
     public final static float DESIGN_WIDTH = 750;
     private static Context mContext;
+    private RefWatcher refWatcher;
     @Override
     public void onCreate() {
         super.onCreate();
         //沉浸式状态栏
         immersive();
         mContext = getApplicationContext();
+       refWatcher =  LeakCanary.install(this);
+    }
+
+    public static RefWatcher getRefWatcher(Context context) {
+        MyApp application = (MyApp) context.getApplicationContext();
+        return application.refWatcher;
     }
     public static Context getApplication(){
         return mContext;

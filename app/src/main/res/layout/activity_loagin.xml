@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     android:background="@mipmap/login_register_background"
     tools:context=".loaginreg.activity.LoginActivity">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tiao"
-        android:text="跳转"
-        />
     <ImageView
         android:layout_width="@dimen/dp_30"
         android:layout_height="@dimen/dp_30"

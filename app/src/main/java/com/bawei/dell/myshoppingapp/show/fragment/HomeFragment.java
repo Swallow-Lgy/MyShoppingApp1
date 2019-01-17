@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bawei.dell.myshoppingapp.R;
+import com.bawei.dell.myshoppingapp.app.MyApp;
 import com.bawei.dell.myshoppingapp.base.BaseFrgment;
 import com.bawei.dell.myshoppingapp.presenter.IPresenterImpl;
 import com.bawei.dell.myshoppingapp.show.home.adpter.HomeFainshAdpter;
@@ -40,6 +41,8 @@ import com.bawei.dell.myshoppingapp.show.home.bean.HomeTwoListBean;
 import com.bawei.dell.myshoppingapp.show.home.bean.HomeViewpagerBean;
 import com.bawei.dell.myshoppingapp.view.IView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.squareup.leakcanary.RefWatcher;
+
 import java.util.List;
 public class HomeFragment extends BaseFrgment implements View.OnClickListener ,IView {
     private String  mHotMoreUrl="commodity/v1/findCommodityListByLabel?labelId=%d&page=%d&count=%d";
@@ -468,6 +471,8 @@ public class HomeFragment extends BaseFrgment implements View.OnClickListener ,I
     public void onDestroy() {
         super.onDestroy();
         mIPresenterImpl.destory();
+        RefWatcher refWatcher = MyApp.getRefWatcher(getActivity());
+        refWatcher.watch(this);
     }
 
     @Override

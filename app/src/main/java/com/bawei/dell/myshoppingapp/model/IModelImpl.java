@@ -1,7 +1,12 @@
 package com.bawei.dell.myshoppingapp.model;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.bawei.dell.myshoppingapp.app.MyApp;
 import com.bawei.dell.myshoppingapp.callback.MyCallBack;
 import com.bawei.dell.myshoppingapp.util.RetrofitManager;
 import com.google.gson.Gson;
@@ -12,6 +17,10 @@ public class IModelImpl implements IModel {
     //post请求
     @Override
     public void requestDataMpost(String url, Map<String, String> map, final Class clazz, final MyCallBack callBack) {
+         if (!isNetWork()){
+             Toast.makeText(MyApp.getApplication(),"无可用网络",Toast.LENGTH_SHORT).show();
+            return;
+         }
         RetrofitManager.getInstance().post(url,map,new RetrofitManager.HttpListener() {
             @Override
             public void onSuccess(String data) {
@@ -30,6 +39,10 @@ public class IModelImpl implements IModel {
     //get请求
     @Override
     public void requestDataMget(String url, final Class clazz, final MyCallBack callBack) {
+        if (!isNetWork()){
+            Toast.makeText(MyApp.getApplication(),"无可用网络",Toast.LENGTH_SHORT).show();
+            return;
+        }
         RetrofitManager.getInstance().get(url,new RetrofitManager.HttpListener() {
             @Override
             public void onSuccess(String data) {
@@ -47,6 +60,10 @@ public class IModelImpl implements IModel {
     //delelt请求
     @Override
     public void requestDataMgdelete(String url, final Class clazz, final MyCallBack callBack) {
+        if (!isNetWork()){
+            Toast.makeText(MyApp.getApplication(),"无可用网络",Toast.LENGTH_SHORT).show();
+            return;
+        }
         RetrofitManager.getInstance().delete(url,new RetrofitManager.HttpListener() {
             @Override
             public void onSuccess(String data) {
@@ -61,9 +78,12 @@ public class IModelImpl implements IModel {
             }
         });
     }
-
     @Override
     public void requestDataMput(String url, Map<String, String> map, final Class clazz, final MyCallBack callBack) {
+        if (!isNetWork()){
+            Toast.makeText(MyApp.getApplication(),"无可用网络",Toast.LENGTH_SHORT).show();
+            return;
+        }
         RetrofitManager.getInstance().put(url,map,new RetrofitManager.HttpListener() {
             @Override
             public void onSuccess(String data) {
@@ -77,6 +97,13 @@ public class IModelImpl implements IModel {
                 callBack.setData(error);
             }
         });
+    }
+    //判断网络状态
+    public static boolean isNetWork()
+    {
+        ConnectivityManager cm = (ConnectivityManager) MyApp.getApplication().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
+        return activeNetworkInfo!=null && activeNetworkInfo.isAvailable();
     }
 
 }

@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //密码显示隐藏
         setEye();
         //记住密码
-        tiao();
+
         mSharedPreferences = getSharedPreferences("User",MODE_PRIVATE);
         editor = mSharedPreferences.edit();
         boolean remcheck = mSharedPreferences.getBoolean("remcheck", false);
@@ -82,17 +82,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-    public void tiao(){
-        tiao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-    }
     //获取id
     public void initId(){
         login_button = findViewById(R.id.login_button);
@@ -103,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         phonenum = findViewById(R.id.phonenum);
         login_remcheck = findViewById(R.id.login_remcheck);
         login_eye = findViewById(R.id.login_icon_eye);
-        tiao = findViewById(R.id.tiao);
+
     }
     //请求数据
     public void initData(){
@@ -134,14 +123,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     editor.clear();
                     editor.commit();
                 }
-                if (Validator.isPhoneValidator(phone)){
-                    if (Validator.isPwdValidator(pwd)){
+           if (Validator.isPhoneValidator(phone)){
+                   if (Validator.isPwdValidator(pwd)){
                         initData();
-                    }else {
-                        Toast.makeText(this,"输入正确的密码格式",Toast.LENGTH_SHORT).show();
-                    }
-                    } else {
-                    Toast.makeText(this,"输入正确的手机格式",Toast.LENGTH_SHORT).show();
+                   }else {
+                       Toast.makeText(this,"输入正确的密码格式",Toast.LENGTH_SHORT).show();
+                   }
+                   } else {
+                   Toast.makeText(this,"输入正确的手机格式",Toast.LENGTH_SHORT).show();
                    }
                 break;
             case R.id.reg_text:

@@ -9,6 +9,9 @@ public class SearchAddBean {
         this.count = count;
     }
 
+    public SearchAddBean() {
+    }
+
     public int getCommodityId() {
         return commodityId;
     }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+   <RelativeLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:background="@drawable/criclelistback"
+       android:layout_marginBottom="@dimen/dp_10"
+       >
+       <TextView
+           android:layout_width="@dimen/dp_50"
+           android:layout_height="wrap_content"
+           android:text="李小二"
+
+           android:textSize="@dimen/sp_14"
+           android:layout_marginTop="@dimen/dp_18"
+           android:id="@+id/my_address_name"
+           android:layout_marginLeft="@dimen/dp_10"
+           />
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/my_address_phone"
+           android:layout_toRightOf="@id/address_name"
+           android:layout_marginLeft="@dimen/dp_180"
+           android:layout_marginTop="@dimen/dp_18"
+           android:text="13800138000"
+           android:textSize="@dimen/sp_12"
+
+
+           />
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/my_address_address"
+           android:layout_below="@id/my_address_name"
+           android:layout_marginTop="@dimen/dp_10"
+           android:layout_marginLeft="@dimen/dp_10"
+           android:textSize="@dimen/sp_12"
+
+           android:text="北京市 海淀区 八维"
+           />
+       <TextView
+           android:layout_width="@dimen/dp_300"
+           android:layout_height="@dimen/dp_2"
+           android:layout_centerHorizontal="true"
+           android:layout_below="@id/my_address_address"
+           android:textColor="#cccc"
+           android:layout_marginTop="@dimen/dp_10"
+           android:id="@+id/linea"
+           />
+       <Button
+           android:layout_width="@dimen/dp_40"
+           android:layout_height="@dimen/dp_20"
+           android:id="@+id/my_address_update"
+           android:text="修改"
+           android:background="@drawable/my_address_bg"
+           android:layout_below="@id/linea"
+           android:layout_marginLeft="@dimen/dp_200"
+           android:layout_marginTop="@dimen/dp_10"
+           android:layout_marginBottom="@dimen/dp_10"
+
+           />
+       <Button
+           android:layout_width="@dimen/dp_40"
+           android:layout_height="@dimen/dp_20"
+           android:id="@+id/my_address_delete"
+           android:text="删除"
+           android:background="@drawable/my_address_bg"
+           android:layout_toRightOf="@id/my_address_update"
+           android:layout_below="@id/linea"
+           android:layout_marginLeft="@dimen/dp_10"
+           android:layout_marginTop="@dimen/dp_10"
+           android:layout_marginBottom="@dimen/dp_10"
+           />
+
+
+   </RelativeLayout>
+</RelativeLayout>

@@ -39,7 +39,7 @@ public class RetrofitManager{
         return mRetrofitManager;
     }
     private BaseApis mBaseApis;
-    public RetrofitManager(){
+    private RetrofitManager(){
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.readTimeout(15,TimeUnit.SECONDS);
@@ -50,16 +50,15 @@ public class RetrofitManager{
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
                 SharedPreferences preferences = MyApp.getApplication().getSharedPreferences("User", Context.MODE_PRIVATE);
-                String userId = preferences.getString("userId", "");
                 String sessionId = preferences.getString("sessionId", "");
                 Request.Builder builder1 = request.newBuilder();
                 builder1.method(request.method(),request.body());
+                String userId = preferences.getString("userId", "");
 
                 if(!TextUtils.isEmpty(userId)&&!TextUtils.isEmpty(sessionId)){
                     builder1.addHeader("userId",userId);
                     builder1.addHeader("sessionId",sessionId);
                 }
-
                 Request build = builder1.build();
 
                 return chain.proceed(build);
@@ -148,7 +147,9 @@ public class RetrofitManager{
 
             @Override
             public void onError(Throwable e) {
-                Log.i("TAG",e.getLocalizedMessage());
+                if (listener != null) {
+                    listener.onFail(e.getMessage());
+                }
             }
 
             @Override
@@ -165,10 +166,8 @@ public class RetrofitManager{
                     }
                 }
             }
-
         };
         return observer;
-
     }
     public interface HttpListener{
         void onSuccess(String data);

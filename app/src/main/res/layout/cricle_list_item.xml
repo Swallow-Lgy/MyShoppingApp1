@@ -36,7 +36,7 @@
             android:text="2018-11-13 13:00"
             android:layout_toRightOf="@id/cricle_list_name"
             android:layout_marginTop="@dimen/dp_30"
-            android:layout_marginLeft="@dimen/dp_140"
+            android:layout_marginLeft="@dimen/dp_110"
             android:textSize="@dimen/dp_10"
             android:textColor="#666666"
             android:id="@+id/cricle_list_time"

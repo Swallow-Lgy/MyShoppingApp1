@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="wrap_content"
+        android:text="李小二"
+        android:textColor="#ffff"
+        android:textSize="@dimen/sp_14"
+        android:layout_marginTop="@dimen/dp_18"
+        android:id="@+id/address_name"
+        android:layout_marginLeft="@dimen/dp_10"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/address_phone"
+        android:layout_toRightOf="@id/address_name"
+        android:layout_marginLeft="@dimen/dp_180"
+        android:layout_marginTop="@dimen/dp_18"
+        android:text="13800138000"
+        android:textSize="@dimen/sp_12"
+        android:textColor="#ffff"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/address_address"
+        android:layout_below="@id/address_name"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:textSize="@dimen/sp_12"
+        android:textColor="#ffff"
+        android:text="北京市 海淀区 八维"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chose_address"
+        android:layout_toRightOf="@+id/address_address"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_alignLeft="@id/address_phone"
+        android:text="选择"
+        android:textSize="@dimen/sp_14"
+        android:textColor="#ff00"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_2"
+        android:layout_below="@id/address_address"
+        android:textColor="#ff00"
+        android:textSize="@dimen/sp_6"
+        />
+</RelativeLayout>

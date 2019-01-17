@@ -1,8 +1,9 @@
 package com.bawei.dell.myshoppingapp.show.shopcar.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ShopCarBean {
+public class ShopCarBean implements Serializable{
 
 
     private String message;
@@ -33,13 +34,22 @@ public class ShopCarBean {
         this.result = result;
     }
 
-    public static class ResultBean {
+    public static class ResultBean implements Serializable {
         private int commodityId;
         private String commodityName;
         private String pic;
         private double price;
         private int count;
         private boolean ischeck=false;
+
+        public ResultBean(int commodityId, String commodityName, String pic, double price, int count, boolean ischeck) {
+            this.commodityId = commodityId;
+            this.commodityName = commodityName;
+            this.pic = pic;
+            this.price = price;
+            this.count = count;
+            this.ischeck = ischeck;
+        }
 
         public boolean getIscheck() {
             return ischeck;

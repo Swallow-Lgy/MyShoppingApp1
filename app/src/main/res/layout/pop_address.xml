@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/dp_10"
+    >
+     <android.support.v7.widget.RecyclerView
+         android:layout_width="match_parent"
+         android:layout_height="@dimen/dp_370"
+         android:id="@+id/pop_recycle"
+         android:layout_marginLeft="@dimen/dp_20"
+         android:layout_marginRight="@dimen/dp_20"
+         android:background="@drawable/pop_address_bg"
+         >
+     </android.support.v7.widget.RecyclerView>
+</RelativeLayout>
