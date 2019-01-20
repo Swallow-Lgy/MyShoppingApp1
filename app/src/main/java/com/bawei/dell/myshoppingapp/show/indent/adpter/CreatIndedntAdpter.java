@@ -20,13 +20,11 @@ import java.util.List;
 public class CreatIndedntAdpter extends RecyclerView.Adapter<CreatIndedntAdpter.ViewHolder> {
     private List<ShopCarBean.ResultBean> mList;
     private Context mContext;
-
     public CreatIndedntAdpter(List<ShopCarBean.ResultBean> mList, Context mContext) {
         this.mList = mList;
         this.mContext = mContext;
         notifyDataSetChanged();
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

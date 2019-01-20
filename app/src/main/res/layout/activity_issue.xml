@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/dp_5"
+    android:background="#fff"
+    android:padding="@dimen/dp_24"
+    android:elevation="@dimen/dp_4"
+    tools:context=".show.indent.activity.IssueActivity">
+    <RelativeLayout
+        android:id="@+id/rela"
+        android:padding="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:background="@drawable/issue_goods_bg"
+        android:layout_height="@dimen/dp_105">
+        <ImageView
+            android:background="@drawable/criclelistback"
+            android:id="@+id/item_eva_image"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/dp_81"
+            android:layout_height="@dimen/dp_81" />
+        <TextView
+            android:id="@+id/item_eva_name"
+            android:textColor="#666666"
+            android:maxLines="2"
+            android:layout_toRightOf="@id/item_eva_image"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="23"
+            android:paddingLeft="@dimen/dp_20"
+            android:textSize="@dimen/sp_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_toRightOf="@id/item_eva_image"
+            android:textColor="#ff0000"
+            android:text="23"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingTop="@dimen/dp_60"
+            android:layout_marginTop="@dimen/dp_5"
+            android:textSize="@dimen/sp_14"
+            android:id="@+id/item_eva_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/re"
+        android:padding="@dimen/dp_10"
+        android:background="@drawable/issue_context_bg"
+        android:layout_below="@id/rela"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_width="match_parent"
+
+        android:layout_height="@dimen/dp_130">
+
+        <EditText
+            android:id="@+id/tVname"
+            android:hint="请在此处写下你对商品的评价"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+      <android.support.v7.widget.RecyclerView
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/dp_80"
+           android:layout_below="@+id/re"
+          android:layout_marginTop="@dimen/dp_5"
+          android:id="@+id/issue_image_recycle"
+          >
+      </android.support.v7.widget.RecyclerView>
+    <CheckBox
+        android:id="@+id/mCheck"
+        android:layout_below="@id/issue_image_recycle"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="wrap_content"
+        android:text="同步到圈子"
+        android:textSize="@dimen/sp_12"
+        android:textColor="#666666"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/mIssue"
+        android:layout_alignParentBottom="true"
+        android:layout_width="@dimen/dp_312"
+        android:text="发布"
+        android:background="#ff5e70"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:layout_height="@dimen/dp_40" />
+</RelativeLayout>

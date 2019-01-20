@@ -4,6 +4,8 @@ import com.bawei.dell.myshoppingapp.callback.MyCallBack;
 import com.bawei.dell.myshoppingapp.model.IModelImpl;
 import com.bawei.dell.myshoppingapp.view.IView;
 
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 public class IPresenterImpl implements IPresenter {
@@ -53,6 +55,26 @@ public class IPresenterImpl implements IPresenter {
                 mIView.requestDataV(data);
             }
         });
+    }
+
+    @Override
+    public void requestDataPpostFile(String url, final Map<String, String> map, Class clazz) {
+        mIModelImpl.requestDataMpostFile(url, map, clazz, new MyCallBack() {
+            @Override
+            public void setData(Object data) {
+                mIView.requestDataV(data);
+            }
+        });
+    }
+   //多图片上传
+    @Override
+    public void requestDataPduoContext(String url, Map<String, String> map, List<File> list, Class clazz) {
+         mIModelImpl.requestDataMduoContext(url, map, list, clazz, new MyCallBack() {
+             @Override
+             public void setData(Object data) {
+                 mIView.requestDataV(data);
+             }
+         });
     }
 
     //解绑

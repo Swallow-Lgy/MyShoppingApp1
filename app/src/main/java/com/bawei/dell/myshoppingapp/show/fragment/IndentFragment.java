@@ -38,7 +38,7 @@ public class IndentFragment extends BaseFrgment implements View.OnClickListener,
     int page;
     private XRecyclerView indentXRecycle;
     private IndentAdpter mIndentAdpter;
-    int mType =1;
+    int mType =0;
     int count =5;
     @Override
     protected int getViewById() {
@@ -105,8 +105,6 @@ public class IndentFragment extends BaseFrgment implements View.OnClickListener,
         });
         getData(mType,page,count);
     }
-
-
     @Override
     public void onClick(View v) {
          switch (v.getId()){
@@ -137,6 +135,14 @@ public class IndentFragment extends BaseFrgment implements View.OnClickListener,
                  page=1;
                  count=5;
                  getData(mType,page,count);
+                 break;
+             case R.id.indet_but_completed:
+                 Toast.makeText(getActivity(),"已完成",Toast.LENGTH_SHORT).show();
+                 mType=9;
+                 page=1;
+                 count=5;
+                 getData(mType,page,count);
+                 break;
              default:
                  break;
          }

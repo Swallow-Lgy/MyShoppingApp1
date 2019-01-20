@@ -74,6 +74,9 @@ public class MyAddressActivity extends BaseActivity implements View.OnClickListe
        if (data instanceof MyAddressBean){
            MyAddressBean addressBean = (MyAddressBean) data;
            result = addressBean.getResult();
+           if (result.size()==0){
+               return;
+           }
            addressAdpter.setmList(result);
        }
     }

@@ -9,14 +9,17 @@ import android.util.Log;
 
 import com.bawei.dell.myshoppingapp.app.MyApp;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -25,6 +28,8 @@ import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -136,6 +141,47 @@ public class RetrofitManager{
               .observeOn(AndroidSchedulers.mainThread())
               .subscribe(getObserver(listener));
       return mRetrofitManager;
+    }
+    //上传图片
+    public void postFile(String url, Map<String,String>map,HttpListener listener)
+    {
+
+        if (map==null){
+            map = new HashMap<>();
+        }
+        MultipartBody multipartBody = filesToMultipartBoy(map);
+        mBaseApis.postFile(url,multipartBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getObserver(listener));
+    }
+    //多图文上传
+    public void postduocon(String url, Map<String,String> params, List<File> list, HttpListener listener){
+        MultipartBody.Part[] parts=new MultipartBody.Part[list.size()];
+        int index=0;
+        for (File file: list){
+            RequestBody requestBody=RequestBody.create(MediaType.parse("multipart/form-data"),file);
+            MultipartBody.Part filePart=MultipartBody.Part.createFormData("image",file.getName(),requestBody);
+            parts[index]=filePart;
+            index++;
+        }
+
+        mBaseApis.postDuoContent(url,params,parts)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getObserver(listener));
+
+    }
+    public static MultipartBody filesToMultipartBoy(Map<String,String>map){
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        for (Map.Entry<String,String> entry:map.entrySet()){
+           File file = new File(entry.getValue());
+            builder.addFormDataPart(entry.getKey(), "图片1.png",
+                    RequestBody.create(MediaType.parse("multipart/form-data"), file));
+        }
+        builder.setType(MultipartBody.FORM);
+        MultipartBody multipartBody = builder.build();
+        return multipartBody;
     }
     //观察者
     private Observer getObserver(final HttpListener listener) {

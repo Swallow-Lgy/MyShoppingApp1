@@ -1,8 +1,10 @@
 package com.bawei.dell.myshoppingapp.show.my.activity;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -31,7 +33,7 @@ public class MyMessageActivity extends BaseActivity implements IView {
     private TextView name, pwdnum;
     private String searchMeaaage="user/verify/v1/getUserById";
     private IPresenterImpl iPresenter;
-    private EditText newname;
+    private EditText edit_name;
     private PopupWindow popupWindow;
     @Override
     protected void initData() {
@@ -42,89 +44,94 @@ public class MyMessageActivity extends BaseActivity implements IView {
         //得到账号和密码
         sharedPreferences = getSharedPreferences("User", MODE_PRIVATE);
         //修改姓名
-        /*updateUserName();*/
+        updateUserName();
         //修改密码
         updateUserPwd();
     }
-   /*//修改名称
+   //修改名称
     public void updateUserName(){
-        name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
-
-                }
-                else {
-                    String newname = name.getText().toString();
-                    Map<String,String> map = new HashMap<>();
-                    map.put("nickName",newname);
-                    iPresenter.requestDataPput(updateNameUrl,map,UserNameUpdate.class);
-                }
-            }
-        });
-    }*/
-    //修改密码
-    public void updateUserPwd(){
-        pwdnum.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus){
-
-                }
-                else {
-                    String newpwd = pwdnum.getText().toString();
-                    String pwd = sharedPreferences.getString("pwd", null);
-                    Map<String,String> map = new HashMap<>();
-                    map.put("newPwd",newpwd);
-                    map.put("oldPwd",pwd);
-                    iPresenter.requestDataPput(updatePwdUrl,map,UserPwdUpdate.class);
-                }
-            }
-        });
-    }
-    //判断聚焦
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            // 获取当前焦点所在的控件；
-            View view = getCurrentFocus();
-            if (view != null && view instanceof EditText) {
-                Rect r = new Rect();
-                view.getGlobalVisibleRect(r);
-                int rawX = (int) ev.getRawX();
-                int rawY = (int) ev.getRawY();
-                // 判断点击的点是否落在当前焦点所在的 view 上；
-                if (!r.contains(rawX, rawY)) {
-                    view.clearFocus();
-                }
-            }
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    //修改姓名的pop
-    public void uodateName(){
-        final View view = View.inflate(this,R.layout.pop_name,null);
-        newname = view.findViewById(R.id.newname_edit);
-        // 创建PopupWindow对象，其中：
-        // 第一个参数是用于PopupWindow中的View，第二个参数是PopupWindow的宽度，
-        // 第三个参数是PopupWindow的高度，第四个参数指定PopupWindow能否获得焦点
-        popupWindow = new PopupWindow(view,LinearLayout.LayoutParams.MATCH_PARENT
-                ,LinearLayout.LayoutParams.WRAP_CONTENT,true);
-        //获取焦点
-        popupWindow.setFocusable(true);
-        //定义颜色颜色
-        ColorDrawable cdw = new ColorDrawable(getResources().getColor(R.color.popcolor));
-        //设置颜色
-        popupWindow.setBackgroundDrawable(cdw);
         name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupWindow.showAsDropDown(v,0,1);
+                updateNameAler();
+            }
+        });
+    }
+    //修改密码
+    public void updateUserPwd(){
+         pwdnum.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 updatePwdAlert();
+             }
+         });
+    }
+    //修改姓名的
+    public void updateNameAler()
+    {
+        View nameView=View.inflate(MyMessageActivity.this,R.layout.alert_name,null);
+        edit_name = nameView.findViewById(R.id.alert_edit_name);
+        final AlertDialog.Builder builder=new AlertDialog
+                .Builder(this)
+                .setView(nameView);
+        //点击对话框以外的区域是否让对话框消失
+        builder.setCancelable(false);
+
+        //确定事件
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                    Map<String,String> params=new HashMap<>();
+                    params.put("nickName",edit_name.getText().toString());
+                    iPresenter.requestDataPput(updateNameUrl,params,UserNameUpdate.class);
+                    dialog.dismiss();
+                     getUserMeassage();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+    //修改密码
+    private void updatePwdAlert() {
+
+        View passView=View.inflate(MyMessageActivity.this,R.layout.alert_pass,null);
+        final EditText edit_pass = passView.findViewById(R.id.alert_edit_pass);
+        final EditText edit_surepass = passView.findViewById(R.id.alert_edit_surepass);
+
+        final AlertDialog.Builder builder=new AlertDialog
+                .Builder(this)
+                .setView(passView);
+        //点击对话框以外的区域是否让对话框消失
+        builder.setCancelable(false);
+
+        //确定事件
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Map<String,String> params=new HashMap<>();
+                params.put("oldPwd",edit_pass.getText().toString());
+                params.put("newPwd",edit_surepass.getText().toString());
+                iPresenter.requestDataPput(updatePwdUrl,params,UserPwdUpdate.class);
+                dialog.dismiss();
+                getUserMeassage();
 
             }
         });
-        popupWindow.dismiss();
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+
+
     }
    //查询个人信息
     public void  getUserMeassage(){
@@ -135,9 +142,8 @@ public class MyMessageActivity extends BaseActivity implements IView {
         if (data instanceof SearchMessageBean){
             SearchMessageBean messageBean = (SearchMessageBean) data;
             SearchMessageBean.ResultBean result = messageBean.getResult();
-            String pwd = sharedPreferences.getString("pwd", null);
             name.setText(result.getNickName());
-            pwdnum.setText(pwd);
+            pwdnum.setText(result.getPassword());
         }
         if (data instanceof UserNameUpdate){
             UserNameUpdate nameUpdate = (UserNameUpdate) data;

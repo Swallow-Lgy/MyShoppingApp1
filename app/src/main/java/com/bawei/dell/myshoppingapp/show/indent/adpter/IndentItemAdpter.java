@@ -34,8 +34,8 @@ public class IndentItemAdpter extends RecyclerView.Adapter<IndentItemAdpter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-         viewHolder.count.setText(mList.get(i).getCommodityCount()+"");
-         viewHolder.price.setText(mList.get(i).getCommodityPrice()+"");
+         viewHolder.count.setText("x"+mList.get(i).getCommodityCount());
+         viewHolder.price.setText("￥"+mList.get(i).getCommodityPrice()+"");
          viewHolder.name.setText(mList.get(i).getCommodityName());
         String commodityPic = mList.get(i).getCommodityPic();
         String[] split = commodityPic.split(",");

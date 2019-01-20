@@ -3,6 +3,9 @@ package com.bawei.dell.myshoppingapp.app;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Point;
+import android.os.Build;
+import android.os.StrictMode;
+import android.support.annotation.RequiresApi;
 import android.view.WindowManager;
 
 import com.squareup.leakcanary.LeakCanary;
@@ -13,6 +16,7 @@ public class MyApp extends Application {
     public final static float DESIGN_WIDTH = 750;
     private static Context mContext;
     private RefWatcher refWatcher;
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public void onCreate() {
         super.onCreate();
@@ -20,6 +24,10 @@ public class MyApp extends Application {
         immersive();
         mContext = getApplicationContext();
        refWatcher =  LeakCanary.install(this);
+        // android 7.0系统解决拍照的问题
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
     }
 
     public static RefWatcher getRefWatcher(Context context) {
@@ -34,4 +42,6 @@ public class MyApp extends Application {
         ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getSize(mPoint);
         getResources().getDisplayMetrics().xdpi = mPoint.x / DESIGN_WIDTH * 72f;
     }
+
+
 }

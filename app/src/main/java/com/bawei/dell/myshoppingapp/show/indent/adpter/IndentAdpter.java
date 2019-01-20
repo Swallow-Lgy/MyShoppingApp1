@@ -24,6 +24,7 @@ public class IndentAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final int TYPE_WAIT=2;
     private final int TYPE_JUDGE=3;
     private final int TYPE_COMPLEED=9;
+    private String orderId;
 
     public IndentAdpter(Context mContext) {
         this.mContext = mContext;
@@ -54,6 +55,9 @@ public class IndentAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (mList.get(position).getOrderStatus()==TYPE_JUDGE){
             return TYPE_JUDGE;
         }
+        if (mList.get(position).getOrderStatus()==TYPE_COMPLEED){
+            return TYPE_COMPLEED;
+        }
         else {
             return -1;
         }
@@ -72,6 +76,9 @@ public class IndentAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             case TYPE_JUDGE:
                 View view =  View.inflate(mContext,R.layout.judge_indent,null);
                  return  new JudegViewHolder(view);
+            case TYPE_COMPLEED:
+                View view1 = View.inflate(mContext,R.layout.completed_indent,null);
+                return new CompleedViewHolder(view1);
                 default:
                     return null;
         }
@@ -152,19 +159,29 @@ public class IndentAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             case TYPE_JUDGE:
                 JudegViewHolder judegViewHolder = (JudegViewHolder) viewHolder;
                 judegViewHolder.judgecode.setText(orderListBean.getOrderId());
-                String judgdate = new SimpleDateFormat("yyyy-MM-dd hh:mm").format(
+                orderId = orderListBean.getOrderId();
+                 String judgdate = new SimpleDateFormat("yyyy-MM-dd hh:mm").format(
                 new java.util.Date(orderListBean.getOrderTime()));
                 judegViewHolder.judgetime.setText(judgdate);
-                IndentItemjudegAdpter indentItemjudegAdpter = new IndentItemjudegAdpter(orderListBean.getDetailList(),mContext);
+                IndentItemjudegAdpter indentItemjudegAdpter = new IndentItemjudegAdpter(orderListBean.getDetailList(),mContext,orderListBean.getOrderId());
                 LinearLayoutManager linearLayoutManagerj = new LinearLayoutManager(mContext);
                 judegViewHolder.judgerecycle.setAdapter(indentItemjudegAdpter);
                 judegViewHolder.judgerecycle.setLayoutManager(linearLayoutManagerj);
-
+                break;
+                //已完成
+            case TYPE_COMPLEED:
+                CompleedViewHolder compleedViewHolder = (CompleedViewHolder) viewHolder;
+                compleedViewHolder.completed.setText(orderListBean.getOrderId());
+                LinearLayoutManager linearLayoutManagerw1 =new LinearLayoutManager(mContext);
+                IndentItemAdpter indentItemAdpter = new IndentItemAdpter(orderListBean.getDetailList(),mContext);
+                compleedViewHolder.completedrecycle.setAdapter(indentItemAdpter);
+                compleedViewHolder.completedrecycle.setLayoutManager(linearLayoutManagerw1);
                break;
                 default:
                     return;
         }
     }
+    //传订单
 
     @Override
     public int getItemCount() {
@@ -184,8 +201,8 @@ public class IndentAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
            obligatiosum = itemView.findViewById(R.id.obligation_indent_sum);
            obligationprice = itemView.findViewById(R.id.obligation_indent_sumprice);
            obligatiorecyclerView = itemView.findViewById(R.id.obligation_indent_recycle);
-            obligatipayBut  = itemView.findViewById(R.id.obligation_indent_pay);
-            obligatipayDel = itemView.findViewById(R.id.obligation_but_cancel);
+           obligatipayBut  = itemView.findViewById(R.id.obligation_indent_pay);
+           obligatipayDel = itemView.findViewById(R.id.obligation_but_cancel);
        }
    }
    //待收货
@@ -213,14 +230,25 @@ public class IndentAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
           judgemore =  itemView.findViewById(R.id.judge_item_more);
           judgetime =  itemView.findViewById(R.id.judge_item_time);
           judgerecycle = itemView.findViewById(R.id.judge_item_recycler);
+
       }
 
-
+  }
+  //已完成
+    public class CompleedViewHolder extends RecyclerView.ViewHolder{
+     TextView completed;
+     RecyclerView completedrecycle;
+      public CompleedViewHolder(@NonNull View itemView) {
+          super(itemView);
+          completed = itemView.findViewById(R.id.completed_item_code);
+          completedrecycle = itemView.findViewById(R.id.completed_item_recycler);
+      }
   }
   public void delIndent(int i){
         mList.remove(i);
         notifyDataSetChanged();
   }
+
     //取消订单的接口回调
     onDelClcik monDelClcik;
     public void setOnDelClcikLisenter(onDelClcik delClcik){

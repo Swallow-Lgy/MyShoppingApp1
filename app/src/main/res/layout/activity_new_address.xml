@@ -36,7 +36,7 @@
         <EditText
             android:layout_width="@dimen/dp_200"
             android:layout_height="wrap_content"
-            android:hint="李小二"
+            android:hint="例:李小二"
             android:layout_toRightOf="@id/sjr"
             android:layout_marginTop="@dimen/dp_17"
             android:layout_marginLeft="@dimen/dp_20"
@@ -67,7 +67,7 @@
         <EditText
             android:layout_width="@dimen/dp_200"
             android:layout_height="wrap_content"
-            android:hint="12345678901"
+            android:hint="例:12345678901"
             android:layout_toRightOf="@id/sjr"
             android:layout_marginTop="@dimen/dp_17"
             android:layout_marginLeft="@dimen/dp_20"
@@ -98,7 +98,7 @@
          <TextView
              android:layout_width="@dimen/dp_200"
              android:layout_height="wrap_content"
-             android:hint="广东省  深圳市  福田区"
+             android:hint="例:广东省  深圳市  福田区"
              android:layout_toRightOf="@id/sjr"
              android:layout_marginTop="@dimen/dp_17"
              android:layout_marginLeft="@dimen/dp_20"
@@ -127,7 +127,7 @@
         <EditText
             android:layout_width="@dimen/dp_200"
             android:layout_height="wrap_content"
-            android:hint="皇岗街道办事处"
+            android:hint="例:皇岗街道办事处"
             android:layout_toRightOf="@id/sjr"
             android:layout_marginTop="@dimen/dp_17"
             android:layout_marginLeft="@dimen/dp_20"
@@ -157,7 +157,7 @@
          <EditText
              android:layout_width="@dimen/dp_200"
              android:layout_height="wrap_content"
-             android:hint="031100"
+             android:hint="例:031100"
              android:layout_toRightOf="@id/sjr"
              android:layout_marginTop="@dimen/dp_17"
              android:layout_marginLeft="@dimen/dp_20"

@@ -46,7 +46,7 @@ public class WalletAdpter extends RecyclerView.Adapter<WalletAdpter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-           String date = new SimpleDateFormat("yyyy-MM-dd hh:mm").format(
+           String date = new SimpleDateFormat("yyyy-MM-dd hh").format(
                 new java.util.Date(mList.get(i).getCreateTime()));
            viewHolder.time.setText(date);
            viewHolder.moeny.setText("￥"+mList.get(i).getAmount());

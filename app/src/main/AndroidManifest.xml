@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".app.MyApp"
@@ -13,6 +16,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.bawei.dell.myshoppingapp"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
         <activity
             android:name=".loaginreg.activity.LoginActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
@@ -34,7 +46,11 @@
         <activity android:name=".show.indent.activity.PayActivity" />
         <activity android:name=".show.my.activity.UpdataActivity" />
         <activity android:name=".show.my.activity.FootmarkActivity" />
-        <activity android:name=".show.my.activity.WalletActivity"></activity>
+        <activity android:name=".show.my.activity.WalletActivity" />
+        <activity android:name=".show.my.activity.CricleActivity" />
+        <activity android:name=".show.indent.activity.IssueActivity"
+            android:windowSoftInputMode="adjustPan"
+            ></activity>
     </application>
 
 </manifest>

@@ -156,7 +156,8 @@ public class GoodsDetailedActivity extends BaseActivity implements View.OnClickL
         }
         if (data instanceof String ){
             String error= (String) data;
-            if (error.equals("HTTP 500 ")){
+            if (error.equals("HTTP 500 "))
+            {
                 SearchAddBean searchAddBean=new SearchAddBean();
                 searchAddBean.setCommodityId(ids);
                 searchAddBean.setCount(1);

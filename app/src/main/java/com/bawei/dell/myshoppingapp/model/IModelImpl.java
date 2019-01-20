@@ -11,6 +11,8 @@ import com.bawei.dell.myshoppingapp.callback.MyCallBack;
 import com.bawei.dell.myshoppingapp.util.RetrofitManager;
 import com.google.gson.Gson;
 
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 public class IModelImpl implements IModel {
@@ -98,6 +100,41 @@ public class IModelImpl implements IModel {
             }
         });
     }
+
+    @Override
+    public void requestDataMpostFile(String url, Map<String, String> map, final Class clazz, final MyCallBack callBack) {
+        RetrofitManager.getInstance().postFile(url, map, new RetrofitManager.HttpListener() {
+            @Override
+            public void onSuccess(String data) {
+                Gson gson = new Gson();
+                Object o = gson.fromJson(data, clazz);
+                callBack.setData(o);
+            }
+
+            @Override
+            public void onFail(String error) {
+              callBack.setData(error);
+            }
+        });
+    }
+   //图文上传
+    @Override
+    public void requestDataMduoContext(String url, Map<String, String> map, List<File> list, final Class clazz, final MyCallBack callBack) {
+         RetrofitManager.getInstance().postduocon(url, map, list, new RetrofitManager.HttpListener() {
+             @Override
+             public void onSuccess(String data) {
+                 Gson gson = new Gson();
+                 Object o = gson.fromJson(data, clazz);
+                 callBack.setData(o);
+             }
+
+             @Override
+             public void onFail(String error) {
+                   callBack.setData(error);
+             }
+         });
+    }
+
     //判断网络状态
     public static boolean isNetWork()
     {
